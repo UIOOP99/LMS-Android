@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
       statusBarBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Theme.of(context).primaryColor,
     ));
     return ResponsiveSafeArea(builder: (context, size) {
       return Scaffold(
