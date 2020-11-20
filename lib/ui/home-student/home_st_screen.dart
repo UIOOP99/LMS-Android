@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
+import 'package:flutter/services.dart';
 
 class HomeStScreen extends StatefulWidget {
   @override
@@ -26,6 +27,14 @@ class _HomeStScreenState extends State<HomeStScreen>
 
   @override
   Widget build(BuildContext context) {
+
+
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).primaryColor,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: Theme.of(context).primaryColor,
+      ));
+
     return ResponsiveSafeArea(builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
@@ -33,6 +42,9 @@ class _HomeStScreenState extends State<HomeStScreen>
         ),
         body: tabs[_current_index],
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white,
           currentIndex: _current_index,
           type: BottomNavigationBarType.fixed,
           iconSize: 30,
@@ -41,20 +53,16 @@ class _HomeStScreenState extends State<HomeStScreen>
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text(tab_names[0]),
-                backgroundColor: Colors.blue),
+                title: Text(tab_names[0]),),
             BottomNavigationBarItem(
                 icon: Icon(Icons.search),
-                title: Text(tab_names[1]),
-                backgroundColor: Colors.blue),
+                title: Text(tab_names[1]),),
             BottomNavigationBarItem(
                 icon: Icon(Icons.camera),
-                title: Text(tab_names[2]),
-                backgroundColor: Colors.blue),
+                title: Text(tab_names[2]),),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                title: Text(tab_names[3]),
-                backgroundColor: Colors.blue),
+                title: Text(tab_names[3]),),
           ],
           onTap: (index){
             setState(() {

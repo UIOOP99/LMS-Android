@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:lms_app/utils/route_creator.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).primaryColor,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+    ));
     return ResponsiveSafeArea(builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
