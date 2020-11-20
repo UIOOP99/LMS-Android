@@ -100,7 +100,7 @@ class LoginFormState extends State<LoginForm> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
+              child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     Navigator.of(context).push(createRouteLoginToHomeSt());
