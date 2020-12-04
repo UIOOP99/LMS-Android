@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +24,8 @@ class _HomeStScreenState extends State<HomeStScreen> {
   //   Center(child: Text('آزمون')),
   //   Center(child: Text('پروفایل')),
   // ];
+  bool _showTodaysClasses = true;
+  bool _showAllClasses = false;
 
   String getSystemTime() {
     final now = DateTime.now();
@@ -71,64 +75,186 @@ class _HomeStScreenState extends State<HomeStScreen> {
             ],
           ),
         ),
-        body: ListView(
-          children: [
-            Container(
-              height: 60,
-              margin: EdgeInsets.symmetric(horizontal: 120, vertical: 12),
-              decoration: const BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              child: Center(
-                child: TimerBuilder.periodic(const Duration(seconds: 1),
-                    builder: (context) {
-                  return Text(
-                    getSystemTime(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 21,
-                        fontWeight: FontWeight.bold),
-                  );
-                }),
-              ),
-            ),
-            Center(child: Text("کلاس‌ها‌ی امروز")),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-              decoration: const BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+        body: Container(
+          height: size.height,
+          child: ListView(
+            children: [
+              Container(
+                height: 60,
+                margin: EdgeInsets.symmetric(horizontal: 120, vertical: 12),
+                decoration: const BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                child: Center(
+                  child: TimerBuilder.periodic(const Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      getSystemTime(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
                 ),
               ),
-              child: ListView(
-                children: [
-                  Container(
-                    height: 20,
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                    decoration: const BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 120),
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      _showAllClasses = false;
+                      _showTodaysClasses = !_showTodaysClasses;
+                    });
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("کلاس‌ها‌ی امروز"),
+                      Transform.rotate(
+                          angle: !_showTodaysClasses ? 0 : 180 * pi / 180,
+                          child: Icon(Icons.arrow_drop_down_sharp))
+                    ],
+                  ),
+                ),
+              ),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linearToEaseOut,
+                height: _showTodaysClasses ? 300 : 0,
+                padding: EdgeInsets.all(4),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                decoration: const BoxDecoration(
+                  color: Color(0x0a000000),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                ),
+                child: ListView(
+                  children: List.generate(3, (index) {
+                    return Container(
+                      height: 80,
+                      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: const BoxDecoration(
+                        color: Color(0x0d000000),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
                       ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              margin: EdgeInsets.all(8),
+                              child: Text(
+                                "نام کلاس",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue[900],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                                margin: EdgeInsets.all(12),
+                                child: Text(
+                                  ": شروع کلاس",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                )),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                                margin: EdgeInsets.all(8),
+                                child: Text(
+                                  "شماره‌ی جلسه:",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                )),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 120),
+                child: FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      _showTodaysClasses = false;
+                      _showAllClasses = !_showAllClasses;
+                    });
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("همه‌ی کلاس‌ها"),
+                      Transform.rotate(
+                          angle: !_showAllClasses ? 0 : 180 * pi / 180,
+                          child: Icon(Icons.arrow_drop_down_sharp))
+                    ],
+                  ),
+                ),
+              ),
+              AnimatedContainer(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.linearToEaseOut,
+                  height: _showAllClasses ? 400 : 0,
+                  padding: EdgeInsets.all(4),
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  decoration: const BoxDecoration(
+                    color: Color(0x0a000000),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Center(child: Text("همه‌ی کلاس‌ها")),
-            Container(
-              height: 260,
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-              decoration: const BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-            ),
-          ],
+                  child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      children: List.generate(6, (index) {
+                        return Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "نام کلاس",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue[900],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "تعداد اعضا",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Color(0x0a000000),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                          ),
+                        );
+                      }))),
+            ],
+          ),
         ),
         //body: tabs[_current_index],
         // bottomNavigationBar: BottomNavigationBar(
