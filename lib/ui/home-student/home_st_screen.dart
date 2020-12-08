@@ -63,7 +63,8 @@ class _HomeStScreenState extends State<HomeStScreen> {
                   height: 50,
                   child: FlatButton(
                       onPressed: () {
-                        Navigator.of(context).push(createRouteHomeStToProfile());
+                        Navigator.of(context)
+                            .push(createRouteHomeStToProfile());
                       },
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
@@ -227,24 +228,30 @@ class _HomeStScreenState extends State<HomeStScreen> {
                       children: List.generate(6, (index) {
                         return Container(
                           padding: const EdgeInsets.all(8),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                "نام کلاس",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.blue[900],
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "تعداد اعضا",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .push(createRouteHomeToClass());
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "نام کلاس",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.blue[900],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "تعداد اعضا",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ),
                           decoration: const BoxDecoration(
                             color: Color(0x0a000000),
