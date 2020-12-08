@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
@@ -51,29 +52,25 @@ class _HomeStScreenState extends State<HomeStScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text('خانه'),
               ),
-              Container(
-                width: 45,
-                height: 45,
-                decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(30.0),
-                    )),
-                child: SizedBox(
-                  height: 50,
-                  child: FlatButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(createRouteHomeStToProfile());
-                      },
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30.0),
-                        ),
-                      ),
-                      child: Container()),
-                ),
-              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GestureDetector(
+                        onTap: () {},
+                        child: Container(child: Icon(Icons.email))),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(createRouteHomeStToProfile());
+                        },
+                        child: CircleAvatar(child: Icon(Icons.person))),
+                  ),
+                ],
+              )
             ],
           ),
         ),
