@@ -5,6 +5,7 @@ import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:intl/intl.dart';
+import 'package:lms_app/utils/route_creator.dart';
 
 class HomeStScreen extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _HomeStScreenState extends State<HomeStScreen> {
                   height: 50,
                   child: FlatButton(
                       onPressed: () {
-                        //open profile
+                        Navigator.of(context).push(createRouteHomeStToProfile());
                       },
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
