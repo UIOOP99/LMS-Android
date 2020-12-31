@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/ui/home-student/class_screen.dart';
-import 'package:lms_app/ui/home-student/home_st_screen.dart';
-import 'package:lms_app/ui/profile_screen.dart';
+import 'package:lms_app/ui/view/home-student/class_screen.dart';
+import 'package:lms_app/ui/view/home-student/home_st_screen.dart';
+
+import 'package:lms_app/ui/view/profile_screen.dart';
 
 Route createRouteLoginToHomeSt() {
   return PageRouteBuilder(
