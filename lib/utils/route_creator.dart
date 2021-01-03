@@ -5,6 +5,7 @@ import 'package:lms_app/ui/view/messages_screen.dart';
 
 import 'package:lms_app/ui/view/profile_screen.dart';
 import 'package:lms_app/ui/view_model/message_view_model/message_list_view_model.dart';
+import 'package:lms_app/ui/view_model/single_class_view_model/single_class_view_model.dart';
 import 'package:provider/provider.dart';
 
 Route createRouteLoginToHomeSt() {
@@ -26,9 +27,13 @@ Route createRouteLoginToHomeSt() {
   );
 }
 
-Route createRouteHomeToClass() {
+Route createRouteHomeToClass(int courseId) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => ClassScreen(),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        ChangeNotifierProvider(
+          create: (context) =>SingleClassViewModel(courseId),
+          child: SingleClassScreen(),
+        ),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
       final end = Offset.zero;

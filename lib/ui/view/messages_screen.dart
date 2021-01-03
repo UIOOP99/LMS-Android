@@ -21,7 +21,7 @@ class _MessagesScreen extends State<MessagesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<MessageListViewModel>(context);
+    final messages_provider = Provider.of<MessageListViewModel>(context);
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
@@ -44,9 +44,9 @@ class _MessagesScreen extends State<MessagesScreen> {
         ),
         body: Container(
           child: ListView.builder(
-              itemCount: vm.messages.length,
+              itemCount: messages_provider.messages.length,
               itemBuilder: (context, index) {
-                final message = vm.messages[index];
+                final message = messages_provider.messages[index];
 
                 //return ListTile(
                 return Container(

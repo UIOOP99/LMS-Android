@@ -228,8 +228,9 @@ class _HomeStScreenState extends State<HomeStScreen> {
                           padding: const EdgeInsets.all(8),
                           child: FlatButton(
                             onPressed: () {
+                              //TODO : milad please send the class id instead of 0 bellow. thank:)
                               Navigator.of(context)
-                                  .push(createRouteHomeToClass());
+                                  .push(createRouteHomeToClass(0));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -21,10 +21,9 @@ class User {
   Role role;
   Token token;
 
-  User({
+  User(
     this.id,
-    this.name,
-    this.phone,
+    this.name, {this.phone,
     this.email,
     this.role,
     this.token,

@@ -1,24 +1,34 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lms_app/ui/view_model/single_class_view_model/single_class_view_model.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
 
 import 'package:lms_app/utils/route_creator.dart';
+import 'package:provider/provider.dart';
 
-class ClassScreen extends StatefulWidget {
+class SingleClassScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _ClassScreenState();
+    return _SingleClassScreenState();
   }
 }
 
-class _ClassScreenState extends State<ClassScreen> {
+class _SingleClassScreenState extends State<SingleClassScreen> {
   bool _showStudents = true;
   bool _showAllTasks = false;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    final classProvider = Provider.of<SingleClassViewModel>(context);
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
       statusBarBrightness: Brightness.dark,
@@ -82,8 +92,9 @@ class _ClassScreenState extends State<ClassScreen> {
                   mainAxisSpacing: 10,
                   crossAxisCount: 3,
                   children: List.generate(
-                    12,
+                    classProvider.students.length,
                     (index) {
+                      final student = classProvider.students[index];
                       return Container(
                         padding: const EdgeInsets.all(8),
                         child: Column(
@@ -93,7 +104,7 @@ class _ClassScreenState extends State<ClassScreen> {
                               child: Icon(Icons.access_alarm),
                             ),
                             Text(
-                              "نام دانشجو",
+                              student.name,
                               style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -145,7 +156,12 @@ class _ClassScreenState extends State<ClassScreen> {
                   ),
                 ),
                 child: ListView(
-                  children: List.generate(3, (index) {
+                  children: List.generate(
+                      classProvider.homeworks.length,
+                          (index) {
+
+                        final homework = classProvider.homeworks[index];
+
                     return Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -164,7 +180,7 @@ class _ClassScreenState extends State<ClassScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "متن تکلیف",
+                                    homework.body,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.blue[900],
