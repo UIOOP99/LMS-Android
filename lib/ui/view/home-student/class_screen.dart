@@ -25,7 +25,8 @@ class _ClassScreenState extends State<ClassScreen> {
       systemNavigationBarColor: Theme.of(context).primaryColor,
     ));
 
-    return ResponsiveSafeArea(builder: (context, size) {
+    return ResponsiveSafeArea(builder: (context, size)
+    {
       return Scaffold(
         appBar: AppBar(
           title: Row(

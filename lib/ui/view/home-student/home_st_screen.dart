@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lms_app/ui/view_model/message_view_model/message_list_view_model.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:lms_app/utils/route_creator.dart';
+import 'package:provider/provider.dart';
 
 class HomeStScreen extends StatefulWidget {
   @override
@@ -16,22 +18,18 @@ class HomeStScreen extends StatefulWidget {
 }
 
 class _HomeStScreenState extends State<HomeStScreen> {
-  // int _current_index = 0;
 
-  // final tab_names = ["خانه", "کلاس‌ها", "آزمون", "پروفایل"];
-
-  // final tabs = [
-  //   Center(child: Text('خانه')),
-  //   Center(child: Text('کلاس‌ها')),
-  //   Center(child: Text('آزمون')),
-  //   Center(child: Text('پروفایل')),
-  // ];
   bool _showTodaysClasses = true;
   bool _showAllClasses = false;
 
   String getSystemTime() {
     final now = DateTime.now();
     return DateFormat.Hms().format(now);
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -57,7 +55,10 @@ class _HomeStScreenState extends State<HomeStScreen> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(createRouteHomeStToMessage());
+                        },
                         child: Container(child: Icon(Icons.email))),
                   ),
                   Padding(
