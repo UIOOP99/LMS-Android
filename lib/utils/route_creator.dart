@@ -4,13 +4,25 @@ import 'package:lms_app/ui/view/home-student/home_st_screen.dart';
 import 'package:lms_app/ui/view/messages_screen.dart';
 
 import 'package:lms_app/ui/view/profile_screen.dart';
+import 'package:lms_app/ui/view_model/class_view_model/class_view_model.dart';
 import 'package:lms_app/ui/view_model/message_view_model/message_list_view_model.dart';
 import 'package:lms_app/ui/view_model/single_class_view_model/single_class_view_model.dart';
+import 'package:lms_app/ui/view_model/user_view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 Route createRouteLoginToHomeSt() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => HomeStScreen(),
+    pageBuilder: (context, animation, secondaryAnimation) => MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ClassListViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserViewModel(),
+        ),
+      ],
+      child: HomeStScreen(),
+    ),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
       final end = Offset.zero;
@@ -31,9 +43,9 @@ Route createRouteHomeToClass(int courseId) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) =>
         ChangeNotifierProvider(
-          create: (context) =>SingleClassViewModel(courseId),
-          child: SingleClassScreen(),
-        ),
+      create: (context) => SingleClassViewModel(courseId),
+      child: SingleClassScreen(),
+    ),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
       final end = Offset.zero;
@@ -71,9 +83,10 @@ Route createRouteHomeStToProfile() {
 
 Route createRouteHomeStToMessage() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => ChangeNotifierProvider(
-        create: (context) =>MessageListViewModel(),
-        child: MessagesScreen(),
+    pageBuilder: (context, animation, secondaryAnimation) =>
+        ChangeNotifierProvider(
+      create: (context) => MessageListViewModel(),
+      child: MessagesScreen(),
     ),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(1.0, 0.0);
@@ -81,7 +94,7 @@ Route createRouteHomeStToMessage() {
       final curve = Curves.linearToEaseOut;
 
       final tween =
-      Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
       return SlideTransition(
         position: animation.drive(tween),

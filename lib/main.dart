@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lms_app/ui/view/login/login_screen.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+
+import 'ui/view_model/login_view_model/login_view_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,7 +31,10 @@ class MyApp extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       locale: const Locale("fa", "IR"),
-      home: LoginScreen(),
+      home: ChangeNotifierProvider(
+        create: (context) => LoginViewModel(),
+        child: LoginScreen(),
+      ),
     );
   }
 }

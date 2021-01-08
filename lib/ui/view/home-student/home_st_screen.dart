@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lms_app/ui/view_model/class_view_model/class_view_model.dart';
 import 'package:lms_app/ui/view_model/message_view_model/message_list_view_model.dart';
+import 'package:lms_app/ui/view_model/user_view_model/user_view_model.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -18,7 +20,6 @@ class HomeStScreen extends StatefulWidget {
 }
 
 class _HomeStScreenState extends State<HomeStScreen> {
-
   bool _showTodaysClasses = true;
   bool _showAllClasses = false;
 
@@ -34,6 +35,9 @@ class _HomeStScreenState extends State<HomeStScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final classProvider = Provider.of<ClassListViewModel>(context);
+    final userProvider = Provider.of<UserViewModel>(context);
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
       statusBarBrightness: Brightness.dark,
@@ -132,7 +136,8 @@ class _HomeStScreenState extends State<HomeStScreen> {
                   ),
                 ),
                 child: ListView(
-                  children: List.generate(3, (index) {
+                  children:
+                      List.generate(classProvider.todayClasses.length, (index) {
                     return Container(
                       height: 80,
                       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -149,7 +154,7 @@ class _HomeStScreenState extends State<HomeStScreen> {
                             child: Container(
                               margin: EdgeInsets.all(8),
                               child: Text(
-                                "نام کلاس",
+                                classProvider.todayClasses[index].name,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.blue[900],
@@ -162,7 +167,7 @@ class _HomeStScreenState extends State<HomeStScreen> {
                             child: Container(
                                 margin: EdgeInsets.all(12),
                                 child: Text(
-                                  ": شروع کلاس",
+                                  "${classProvider.todayClasses[index].startTime.hour}: ساعت شروع",
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal),
@@ -173,7 +178,7 @@ class _HomeStScreenState extends State<HomeStScreen> {
                             child: Container(
                                 margin: EdgeInsets.all(8),
                                 child: Text(
-                                  "شماره‌ی جلسه:",
+                                  "شماره‌ی جلسه:${classProvider.todayClasses[index].agendaNum}",
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal),
@@ -223,27 +228,27 @@ class _HomeStScreenState extends State<HomeStScreen> {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       crossAxisCount: 2,
-                      children: List.generate(6, (index) {
+                      children:
+                          List.generate(classProvider.classes.length, (index) {
                         return Container(
                           padding: const EdgeInsets.all(8),
                           child: FlatButton(
                             onPressed: () {
-                              //TODO : milad please send the class id instead of 0 bellow. thank:)
-                              Navigator.of(context)
-                                  .push(createRouteHomeToClass(0));
+                              Navigator.of(context).push(createRouteHomeToClass(
+                                  classProvider.classes[index].id));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  "نام کلاس",
+                                  classProvider.classes[index].name,
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.blue[900],
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "تعداد اعضا",
+                                  "تعداد اعضا ${classProvider.classes[index].memberCount}",
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.black,

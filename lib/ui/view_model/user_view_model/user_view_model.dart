@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lms_app/data/model/user.dart';
 import 'package:lms_app/data/remote_service/remote_service.dart';
 
-class LoginViewModel extends ChangeNotifier {
-  Token token;
+class UserViewModel extends ChangeNotifier {
+  User user;
 
-  Future<void> logInUser(String userName, String password) async {
-    final results = await RemoteService().loginUser(userName, password);
+  UserViewModel() {
+    fetchUser();
+  }
+
+  Future<User> fetchUser() async {
+    final results = await RemoteService().fetchUser();
 
 // *check authentication
     // if(){
@@ -14,7 +18,7 @@ class LoginViewModel extends ChangeNotifier {
     // }else{
 
     // }
-    this.token = results;
+    this.user = results;
 
     notifyListeners();
   }

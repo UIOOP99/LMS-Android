@@ -23,7 +23,8 @@ class User {
 
   User(
     this.id,
-    this.name, {this.phone,
+    this.name, {
+    this.phone,
     this.email,
     this.role,
     this.token,
@@ -34,3 +35,4 @@ class User {
     return 'User(id: $id, name: $name, phone: $phone, email: $email, role: $role, token: $token)';
   }
 }
+//singelton user

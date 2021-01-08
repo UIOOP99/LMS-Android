@@ -4,22 +4,22 @@ import 'package:lms_app/data/remote_service/remote_service.dart';
 
 class ClassListViewModel extends ChangeNotifier {
   List<Class> classes = List<Class>();
+  List<ClassToday> todayClasses = List<ClassToday>();
+  ClassListViewModel() {
+    fetchAllClasses();
+    fetchTodayClasses();
+  }
 
-  Future<void> fetchMovies(String keyword) async {
+  Future<void> fetchAllClasses() async {
     final results = await RemoteService().fetchAllClasses();
     this.classes = results;
-    print(this.classes);
+
     notifyListeners();
   }
-}
 
-class ClassTodayListViewModel extends ChangeNotifier {
-  List<ClassToday> classes = List<ClassToday>();
-
-  Future<void> fetchMovies(String keyword) async {
+  Future<void> fetchTodayClasses() async {
     final results = await RemoteService().fetchTodaysClasses();
-    this.classes = results;
-    print(this.classes);
+    this.todayClasses = results;
     notifyListeners();
   }
 }

@@ -26,8 +26,8 @@ class _SingleClassScreenState extends State<SingleClassScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    final classProvider = Provider.of<SingleClassViewModel>(context);
+    final classProvider =
+        Provider.of<SingleClassViewModel>(context, listen: false);
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
@@ -35,8 +35,7 @@ class _SingleClassScreenState extends State<SingleClassScreen> {
       systemNavigationBarColor: Theme.of(context).primaryColor,
     ));
 
-    return ResponsiveSafeArea(builder: (context, size)
-    {
+    return ResponsiveSafeArea(builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Row(
@@ -101,7 +100,7 @@ class _SingleClassScreenState extends State<SingleClassScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CircleAvatar(
-                              child: Icon(Icons.access_alarm),
+                              child: Icon(Icons.person),
                             ),
                             Text(
                               student.name,
@@ -156,11 +155,9 @@ class _SingleClassScreenState extends State<SingleClassScreen> {
                   ),
                 ),
                 child: ListView(
-                  children: List.generate(
-                      classProvider.homeworks.length,
-                          (index) {
-
-                        final homework = classProvider.homeworks[index];
+                  children:
+                      List.generate(classProvider.homeworks.length, (index) {
+                    final homework = classProvider.homeworks[index];
 
                     return Container(
                         margin:

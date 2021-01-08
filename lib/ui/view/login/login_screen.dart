@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lms_app/ui/view_model/login_view_model/login_view_model.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:lms_app/utils/route_creator.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -41,9 +48,20 @@ class LoginForm extends StatefulWidget {
 class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
+  var userNameController = TextEditingController();
+  var passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    userNameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginViewModel>(context, listen: false);
     return Form(
       key: _formKey,
       child: Container(
@@ -53,6 +71,7 @@ class LoginFormState extends State<LoginForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: userNameController,
                 decoration: new InputDecoration(
                   labelText: "نام کاربری",
                   fillColor: Colors.white,
@@ -75,6 +94,7 @@ class LoginFormState extends State<LoginForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
+                controller: passwordController,
                 decoration: new InputDecoration(
                   labelText: "رمز عبور",
                   fillColor: Colors.white,
@@ -109,6 +129,9 @@ class LoginFormState extends State<LoginForm> {
               child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
+                    // loginProvider.logInUser(userNameController.text.trim(),
+                    //     passwordController.text.trim());
+                    //if login succssfull then
                     Navigator.of(context).push(createRouteLoginToHomeSt());
                     // Scaffold.of(context)
                     //     .showSnackBar(SnackBar(content: Text('در حال ورود')));
