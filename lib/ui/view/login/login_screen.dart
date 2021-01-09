@@ -129,8 +129,8 @@ class LoginFormState extends State<LoginForm> {
               child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    // loginProvider.logInUser(userNameController.text.trim(),
-                    //     passwordController.text.trim());
+                     loginProvider.logInUser(userNameController.text.trim(),
+                         passwordController.text.trim());
                     //if login succssfull then
                     Navigator.of(context).push(createRouteLoginToHomeSt());
                     // Scaffold.of(context)

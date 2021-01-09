@@ -14,12 +14,18 @@ class Token {
 }
 
 class User {
+
+  static User _user;
+
   int id;
   String name;
   String phone;
   String email;
   Role role;
   Token token;
+
+
+  User.build();
 
   User(
     this.id,
@@ -29,6 +35,17 @@ class User {
     this.role,
     this.token,
   });
+
+
+  static User get user
+  {
+      if(_user == null)
+      {
+        _user =  User.build();
+      }
+
+      return _user;
+  }
 
   @override
   String toString() {

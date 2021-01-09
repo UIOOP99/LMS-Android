@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lms_app/data/model/user.dart';
 import 'package:lms_app/ui/view_model/class_view_model/class_view_model.dart';
 import 'package:lms_app/ui/view_model/message_view_model/message_list_view_model.dart';
 import 'package:lms_app/ui/view_model/user_view_model/user_view_model.dart';
@@ -37,6 +38,7 @@ class _HomeStScreenState extends State<HomeStScreen> {
   Widget build(BuildContext context) {
     final classProvider = Provider.of<ClassListViewModel>(context);
     final userProvider = Provider.of<UserViewModel>(context);
+
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
