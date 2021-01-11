@@ -37,8 +37,6 @@ class _HomeStScreenState extends State<HomeStScreen> {
   @override
   Widget build(BuildContext context) {
     final classProvider = Provider.of<ClassListViewModel>(context);
-    final userProvider = Provider.of<UserViewModel>(context);
-
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,

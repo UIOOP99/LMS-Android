@@ -68,7 +68,7 @@ class RemoteService {
           ));
         }
 
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration(seconds: 1));
 
         return Future.value(classes);
       } on DioError catch (e) {}
