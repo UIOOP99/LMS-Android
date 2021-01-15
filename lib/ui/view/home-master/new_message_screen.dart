@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
+import 'package:flutter/services.dart';
 
 class NewMessageScreen extends StatefulWidget {
   NewMessageScreen({Key key}) : super(key: key);
@@ -13,6 +14,14 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
   DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).primaryColor,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Theme.of(context).primaryColor,
+    ));
+
+
     return ResponsiveSafeArea(
       builder: (context, size) {
         return Scaffold(
