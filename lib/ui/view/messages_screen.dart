@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lms_app/ui/view_model/message_view_model/message_list_view_model.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
-
 import 'package:provider/provider.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -14,6 +13,7 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreen extends State<MessagesScreen> {
+
   @override
   void initState() {
     super.initState();

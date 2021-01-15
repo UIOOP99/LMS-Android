@@ -1,6 +1,11 @@
+
 import 'package:flutter/material.dart';
+import 'package:lms_app/data/model/message.dart';
+import 'package:lms_app/ui/view_model/message_view_model/create_message_view_model.dart';
 import 'package:lms_app/utils/responsive_safe_area.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
 
 class NewMessageScreen extends StatefulWidget {
   NewMessageScreen({Key key}) : super(key: key);
@@ -12,8 +17,20 @@ class NewMessageScreen extends StatefulWidget {
 class _NewMessageScreenState extends State<NewMessageScreen> {
   final _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    final create_messages_provider = Provider.of<CreateMessageViewModel>(context);
+      if(create_messages_provider.is_message_sent)
+          Navigator.of(context).pop();
+    Message message = new Message.builder();
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Theme.of(context).primaryColor,
@@ -63,6 +80,10 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                               }
                               return null;
                             },
+                            onChanged: (value)
+                            {
+                              message.title = value;
+                            },
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
@@ -83,6 +104,10 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                                 }
                                 return null;
                               },
+                              onChanged: (value)
+                              {
+                                message.msg = value;
+                              },
                             ),
                           ),
                           Container(
@@ -93,7 +118,9 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                                 FlatButton(
                                   color: Theme.of(context).primaryColor,
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    create_messages_provider.createMessage(message);
+                                    if(create_messages_provider.is_message_sent)
+                                      Navigator.of(context).pop();
                                   },
                                   child: Text(
                                     "ذخیره",
@@ -105,7 +132,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
                                 ),
                                 FlatButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
                                   },
                                   child: Text(
                                     "لغو",
